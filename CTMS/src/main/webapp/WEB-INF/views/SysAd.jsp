@@ -9,4 +9,8 @@
 <body>
 
 </body>
+  <jsp:include page="/WEB-INF/views/header.jsp"/>
+  
+  <jsp:include page="/WEB-INF/views/footer.jsp"/>
+
 </html>
