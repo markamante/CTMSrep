@@ -9,11 +9,11 @@ public class HomeController {
 
     @RequestMapping(value="/")
     public ModelAndView mainPage() {
-        return new ModelAndView("home");
+        return new ModelAndView("login");
     }
 
     @RequestMapping(value="/index")
     public ModelAndView indexPage() {
-        return new ModelAndView("home");
+        return new ModelAndView("login");
     }
 }
