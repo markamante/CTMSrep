@@ -1,6 +1,8 @@
 package com.mvm.ctms.model;
 
 import java.math.BigDecimal;
+import java.sql.Timestamp;
+
 import javax.persistence.*;
 
 @Entity
@@ -26,6 +28,18 @@ public class AccountDetails {
     @Column(name = "for_funding")
     private BigDecimal  for_funding;
 
+    @Column(name = "created_by")
+    private User createdBy;
+    
+    @Column(name = "created_date")
+    private Timestamp createdDate;
+
+    @Column(name = "updated_by")
+    private User updatedBy;
+    
+    @Column(name = "updated_date")
+    private Timestamp updatedDate;
+    
 	public Long getId() {
 		return id;
 	}
@@ -72,5 +86,41 @@ public class AccountDetails {
 
 	public void setFor_funding(BigDecimal for_funding) {
 		this.for_funding = for_funding;
+	}
+
+	public User getCreatedBy() {
+		return createdBy;
+	}
+
+	public void setCreatedBy(User createdBy) {
+		this.createdBy = createdBy;
+	}
+
+	public Timestamp getCreatedDate() {
+		return createdDate;
+	}
+
+	public void setCreatedDate(Timestamp createdDate) {
+		this.createdDate = createdDate;
+	}
+
+	public User getUpdatedBy() {
+		return updatedBy;
+	}
+
+	public void setUpdatedBy(User updatedBy) {
+		this.updatedBy = updatedBy;
+	}
+
+	public Timestamp getUpdatedDate() {
+		return updatedDate;
+	}
+
+	public void setUpdatedDate(Timestamp updatedDate) {
+		this.updatedDate = updatedDate;
+	}
+
+	public void setId(long id) {
+		this.id = id;
 	}
 }

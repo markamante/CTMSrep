@@ -19,7 +19,7 @@ public class Transaction {
     private String checkNo;
 
     @Column(name = "payee")
-    private String payee;
+    private Payee payee;
     
     @Column(name = "recur_flag")
     private String recurFlag;
@@ -44,6 +44,12 @@ public class Transaction {
     @OneToMany(cascade = CascadeType.ALL , fetch = FetchType.LAZY)
     @JoinColumn(name = "updated_by")
     private User updated_by;
+    
+    @Column(name = "created_date")
+    private Timestamp createdDate;
+
+    @Column(name = "updated_date")
+    private Timestamp updatedDate;
 
 	public long getId() {
 		return id;
@@ -69,11 +75,11 @@ public class Transaction {
 		this.checkNo = checkNo;
 	}
 
-	public String getPayee() {
+	public Payee getPayee() {
 		return payee;
 	}
 
-	public void setPayee(String payee) {
+	public void setPayee(Payee payee) {
 		this.payee = payee;
 	}
 
@@ -132,6 +138,20 @@ public class Transaction {
 	public void setUpdated_by(User updated_by) {
 		this.updated_by = updated_by;
 	}
-    
-	
+
+	public Timestamp getCreatedDate() {
+		return createdDate;
+	}
+
+	public void setCreatedDate(Timestamp createdDate) {
+		this.createdDate = createdDate;
+	}
+
+	public Timestamp getUpdatedDate() {
+		return updatedDate;
+	}
+
+	public void setUpdatedDate(Timestamp updatedDate) {
+		this.updatedDate = updatedDate;
+	}
 }

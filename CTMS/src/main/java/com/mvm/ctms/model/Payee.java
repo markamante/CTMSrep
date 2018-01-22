@@ -5,11 +5,11 @@ import java.sql.Timestamp;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "r_accounts")
-public class Accounts {
+@Table(name = "r_payee")
+public class Payee {
 	@Id
-    @Column(name = "code")
-    private String code;
+    @Column(name = "id")
+    private long id;
     
     @Column(name = "description")
     private String description;
@@ -26,12 +26,12 @@ public class Accounts {
     @Column(name = "updated_date")
     private Timestamp updatedDate;
     
-	public String getCode() {
-		return code;
+	public long getId() {
+		return id;
 	}
 
-	public void setCode(String code) {
-		this.code = code;
+	public void setId(long id) {
+		this.id = id;
 	}
 
 	public String getDescription() {
