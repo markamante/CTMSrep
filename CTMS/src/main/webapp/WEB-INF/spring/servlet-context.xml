@@ -54,7 +54,19 @@
     </beans:bean>
 
 	<!-- DAO Bean definition -->
-    <beans:bean id="phoneDAO" class="com.mvm.ctms.dao.PhoneDAOImpl">
+    <beans:bean id="accountDAO" class="com.mvm.ctms.dao.AccountDAOImpl">
+        <beans:property name="sessionFactory" ref="hibernate4AnnotatedSessionFactory" />
+    </beans:bean>
+    <beans:bean id="accountDetailsDAO" class="com.mvm.ctms.dao.AccountDetailsDAOImpl">
+        <beans:property name="sessionFactory" ref="hibernate4AnnotatedSessionFactory" />
+    </beans:bean>
+    <beans:bean id="payeeDAO" class="com.mvm.ctms.dao.PayeeDAOImpl">
+        <beans:property name="sessionFactory" ref="hibernate4AnnotatedSessionFactory" />
+    </beans:bean>
+    <beans:bean id="transactionDAO" class="com.mvm.ctms.dao.TransactionDAOImpl">
+        <beans:property name="sessionFactory" ref="hibernate4AnnotatedSessionFactory" />
+    </beans:bean>
+    <beans:bean id="transactionHistoryDAO" class="com.mvm.ctms.dao.TransactionHistoryDAOImpl">
         <beans:property name="sessionFactory" ref="hibernate4AnnotatedSessionFactory" />
     </beans:bean>
     <beans:bean id="userDAO" class="com.mvm.ctms.dao.UserDAOImpl">
@@ -62,8 +74,8 @@
     </beans:bean>
     
     <!-- Services Bean definition -->
-    <beans:bean id="phoneService" class="com.mvm.ctms.service.PhoneServiceImpl">
-        <beans:property name="phoneDAO" ref="phoneDAO"></beans:property>
+    <beans:bean id="phoneService" class="com.mvm.ctms.service.UserServiceImpl">
+       <!--  <beans:property name="phoneDAO" ref="phoneDAO"></beans:property> -->
     </beans:bean>
     <beans:bean id="userService" class="com.mvm.ctms.service.UserServiceImpl">
         
