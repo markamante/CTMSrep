@@ -1,0 +1,143 @@
+CREATE TABLE public.acct_details
+(
+    id bigint NOT NULL DEFAULT nextval('acct_details_id_seq'::regclass),
+    acct_code character varying(5) COLLATE pg_catalog."default",
+    balance integer,
+    beginning integer,
+    cumulative_ap integer,
+    for_funding integer,
+    created_by character varying COLLATE pg_catalog."default",
+    updated_by character varying COLLATE pg_catalog."default",
+    created_date timestamp without time zone,
+    updated_date timestamp without time zone,
+    CONSTRAINT acct_details_pkey PRIMARY KEY (id),
+    CONSTRAINT acct_code_fkey FOREIGN KEY (acct_code)
+        REFERENCES public.r_accounts (code) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION,
+    CONSTRAINT created_by_fkey FOREIGN KEY (created_by)
+        REFERENCES public.users (username) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION,
+    CONSTRAINT updated_by_fkey FOREIGN KEY (updated_by)
+        REFERENCES public.users (username) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION
+)
+
+CREATE TABLE public.users
+(
+    username character varying(8) COLLATE pg_catalog."default" NOT NULL,
+    full_name character varying(100) COLLATE pg_catalog."default",
+    password character varying COLLATE pg_catalog."default",
+    active boolean,
+    expiry_date timestamp without time zone,
+    profile character varying(20) COLLATE pg_catalog."default",
+    CONSTRAINT users_pkey PRIMARY KEY (username)
+)
+
+CREATE TABLE public.txn
+(
+    id bigint NOT NULL DEFAULT nextval('txn_id_seq'::regclass),
+    date_issued timestamp without time zone,
+    check_no character varying(15) COLLATE pg_catalog."default",
+    payee bigint,
+    recur_flag character varying(1) COLLATE pg_catalog."default",
+    account_id integer,
+    in_flag character varying(1) COLLATE pg_catalog."default",
+    withdrawal integer,
+    deposit integer,
+    created_by character varying(100) COLLATE pg_catalog."default",
+    updated_by character varying(100) COLLATE pg_catalog."default",
+    created_date timestamp without time zone,
+    updated_date timestamp without time zone,
+    CONSTRAINT "TRANSACTIONS_pkey" PRIMARY KEY (id),
+    CONSTRAINT account_id_fkey FOREIGN KEY (account_id)
+        REFERENCES public.acct_details (id) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION,
+    CONSTRAINT created_by_fkey FOREIGN KEY (created_by)
+        REFERENCES public.users (username) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION,
+    CONSTRAINT payee_fkey FOREIGN KEY (payee)
+        REFERENCES public.r_payee (id) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION,
+    CONSTRAINT updated_by_fkey FOREIGN KEY (updated_by)
+        REFERENCES public.users (username) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION
+)
+
+CREATE TABLE public.txn_history
+(
+    id bigint NOT NULL DEFAULT nextval('txn_hist_id_seq'::regclass),
+    activity character varying(50) COLLATE pg_catalog."default",
+    created_by character varying(20) COLLATE pg_catalog."default",
+    created_date timestamp without time zone,
+    CONSTRAINT txn_history_pkey PRIMARY KEY (id),
+    CONSTRAINT txn_user_fkey FOREIGN KEY (created_by)
+        REFERENCES public.users (username) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION
+)
+
+CREATE TABLE public.r_accounts
+(
+    code character varying(5) COLLATE pg_catalog."default" NOT NULL,
+    description character varying(100) COLLATE pg_catalog."default",
+    created_by character varying COLLATE pg_catalog."default",
+    created_date timestamp without time zone,
+    updated_by character varying(8) COLLATE pg_catalog."default",
+    updated_date timestamp without time zone,
+    CONSTRAINT r_accounts_pkey PRIMARY KEY (code),
+    CONSTRAINT created_by_fkey FOREIGN KEY (created_by)
+        REFERENCES public.users (username) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION,
+    CONSTRAINT updated_by_fkey FOREIGN KEY (updated_by)
+        REFERENCES public.users (username) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION
+)
+
+CREATE TABLE public.r_payee
+(
+    id bigint NOT NULL,
+    description character varying(200) COLLATE pg_catalog."default",
+    date_created timestamp without time zone,
+    created_by character varying COLLATE pg_catalog."default",
+    updated_by character varying(8) COLLATE pg_catalog."default",
+    updated_date timestamp without time zone,
+    CONSTRAINT r_payee_pkey PRIMARY KEY (id),
+    CONSTRAINT created_by_fkey FOREIGN KEY (created_by)
+        REFERENCES public.users (username) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION,
+    CONSTRAINT updated_by_fkey FOREIGN KEY (updated_by)
+        REFERENCES public.users (username) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION
+)
+
+CREATE SEQUENCE public.acct_details_id_seq
+    INCREMENT 1
+    START 1
+    MINVALUE 1
+    MAXVALUE 9223372036854775807
+    CACHE 1;
+
+CREATE SEQUENCE public.txn_hist_id_seq
+    INCREMENT 1
+    START 1
+    MINVALUE 1
+    MAXVALUE 9223372036854775807
+    CACHE 1;
+
+CREATE SEQUENCE public.txn_id_seq
+    INCREMENT 1
+    START 1
+    MINVALUE 1
+    MAXVALUE 9223372036854775807
+    CACHE 1;
