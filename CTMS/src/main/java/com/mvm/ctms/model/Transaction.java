@@ -18,32 +18,30 @@ public class Transaction {
     @Column(name = "check_no")
     private String checkNo;
 
-    @Column(name = "payee")
-    private Payee payee;
+    @Column(name = "payee_id")
+    private long payee;
     
-    @Column(name = "recur_flag")
-    private String recurFlag;
-    
-    @OneToMany(cascade = CascadeType.ALL , fetch = FetchType.LAZY)
-    @JoinColumn(name = "acctount_id")
-    private AccountDetails accountId;
+    @ManyToOne
+    @JoinColumn(name = "account_id")
+    private Accounts accountId;
     
     @Column(name = "in_flag")
-    private String inFlag;
-
-    @Column(name = "withdrawal")
-    private BigDecimal  withdrawal;
+    private boolean inFlag;
     
-    @Column(name = "deposit")
-    private BigDecimal  deposit;
-    
-    @OneToMany(cascade = CascadeType.ALL , fetch = FetchType.LAZY)
-    @JoinColumn(name = "created_by")
-    private User createdBy;
+    @Column(name = "recurring_flag")
+    private boolean recurFlag;
 
-    @OneToMany(cascade = CascadeType.ALL , fetch = FetchType.LAZY)
-    @JoinColumn(name = "updated_by")
-    private User updated_by;
+    @Column(name = "withdrawal_amount")
+    private BigDecimal  withdrawalAmt;
+    
+    @Column(name = "deposit_amount")
+    private BigDecimal  depositAmt;
+    
+    @Column(name = "created_by")
+    private String createdBy;
+
+    @Column(name = "updated_by")
+    private String updated_by;
     
     @Column(name = "created_date")
     private Timestamp createdDate;
@@ -75,67 +73,67 @@ public class Transaction {
 		this.checkNo = checkNo;
 	}
 
-	public Payee getPayee() {
+	public long getPayee() {
 		return payee;
 	}
 
-	public void setPayee(Payee payee) {
+	public void setPayee(long payee) {
 		this.payee = payee;
 	}
 
-	public String getRecurFlag() {
+	public boolean getRecurFlag() {
 		return recurFlag;
 	}
 
-	public void setRecurFlag(String recurFlag) {
+	public void setRecurFlag(boolean recurFlag) {
 		this.recurFlag = recurFlag;
 	}
 
-	public AccountDetails getAccountId() {
+	public Accounts getAccountId() {
 		return accountId;
 	}
 
-	public void setAccountId(AccountDetails accountId) {
+	public void setAccountId(Accounts accountId) {
 		this.accountId = accountId;
 	}
 
-	public String getInFlag() {
+	public boolean getInFlag() {
 		return inFlag;
 	}
 
-	public void setInFlag(String inFlag) {
+	public void setInFlag(boolean inFlag) {
 		this.inFlag = inFlag;
 	}
 
-	public BigDecimal getWithdrawal() {
-		return withdrawal;
+	public BigDecimal getWithdrawalAmt() {
+		return withdrawalAmt;
 	}
 
-	public void setWithdrawal(BigDecimal withdrawal) {
-		this.withdrawal = withdrawal;
+	public void setWithdrawalAmt(BigDecimal withdrawalAmt) {
+		this.withdrawalAmt = withdrawalAmt;
 	}
 
-	public BigDecimal getDeposit() {
-		return deposit;
+	public BigDecimal getDepositAmt() {
+		return depositAmt;
 	}
 
-	public void setDeposit(BigDecimal deposit) {
-		this.deposit = deposit;
+	public void setDepositAmt(BigDecimal depositAmt) {
+		this.depositAmt = depositAmt;
 	}
 
-	public User getCreatedBy() {
+	public String getCreatedBy() {
 		return createdBy;
 	}
 
-	public void setCreatedBy(User createdBy) {
+	public void setCreatedBy(String createdBy) {
 		this.createdBy = createdBy;
 	}
 
-	public User getUpdated_by() {
+	public String getUpdated_by() {
 		return updated_by;
 	}
 
-	public void setUpdated_by(User updated_by) {
+	public void setUpdated_by(String updated_by) {
 		this.updated_by = updated_by;
 	}
 

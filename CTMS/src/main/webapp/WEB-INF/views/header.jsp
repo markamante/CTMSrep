@@ -187,6 +187,7 @@ nav .start-contact, a:nth-child(5):hover~.animation {
 			<br /> <img src="https://preview.ibb.co/cRPWu6/Untitled_1.png"
 				width="300px" height="59px" />
 	    </div>
+</div>
         
 </body>
 </html>

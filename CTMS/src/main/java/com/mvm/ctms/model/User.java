@@ -16,12 +16,6 @@ public class User {
 
     @Column(name = "password")
     private String password;
-    
-    @Column(name = "active")
-    private Boolean isActive;
-    
-    @Column(name = "expiry_date")
-    private Timestamp expiryDate;
 
 	public String getUsername() {
 		return username;
@@ -45,25 +39,5 @@ public class User {
 
 	public void setPassword(String password) {
 		this.password = password;
-	}
-
-	public Boolean getIsActive() {
-		return isActive;
-	}
-
-	public void setIsActive(Boolean isActive) {
-		this.isActive = isActive;
-	}
-
-	public Timestamp getExpiryDate() {
-		return expiryDate;
-	}
-
-	public void setExpiryDate(Timestamp expiryDate) {
-		this.expiryDate = expiryDate;
-	}
-    
-    
-    
-    
+	}    
 }

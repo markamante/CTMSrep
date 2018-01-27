@@ -27,48 +27,38 @@ CREATE TABLE public.acct_details
 
 CREATE TABLE public.users
 (
-    username character varying(8) COLLATE pg_catalog."default" NOT NULL,
-    full_name character varying(100) COLLATE pg_catalog."default",
-    password character varying COLLATE pg_catalog."default",
-    active boolean,
-    expiry_date timestamp without time zone,
-    profile character varying(20) COLLATE pg_catalog."default",
+    username character varying(10) COLLATE pg_catalog."default" NOT NULL,
+    full_name character varying(50) COLLATE pg_catalog."default",
+    password character varying(150) COLLATE pg_catalog."default",
+    profile bigint,
     CONSTRAINT users_pkey PRIMARY KEY (username)
-)
+);
 
 CREATE TABLE public.txn
 (
-    id bigint NOT NULL DEFAULT nextval('txn_id_seq'::regclass),
+    id bigint NOT NULL,
     date_issued timestamp without time zone,
-    check_no character varying(15) COLLATE pg_catalog."default",
-    payee bigint,
-    recur_flag character varying(1) COLLATE pg_catalog."default",
-    account_id integer,
-    in_flag character varying(1) COLLATE pg_catalog."default",
-    withdrawal integer,
-    deposit integer,
-    created_by character varying(100) COLLATE pg_catalog."default",
-    updated_by character varying(100) COLLATE pg_catalog."default",
+    check_no character varying(10) COLLATE pg_catalog."default",
+    payee_id bigint,
+    account_id bigint,
+    in_flag boolean,
+    recurring_flag boolean,
+    withdrawal_amount numeric(12,2),
+    deposit_amount numeric(12,2),
+    created_by character varying(10) COLLATE pg_catalog."default",
     created_date timestamp without time zone,
+    updated_by character varying(10) COLLATE pg_catalog."default",
     updated_date timestamp without time zone,
-    CONSTRAINT "TRANSACTIONS_pkey" PRIMARY KEY (id),
-    CONSTRAINT account_id_fkey FOREIGN KEY (account_id)
-        REFERENCES public.acct_details (id) MATCH SIMPLE
+    CONSTRAINT txn_pkey PRIMARY KEY (id),
+    CONSTRAINT r_accounts_id_fkey FOREIGN KEY (account_id)
+        REFERENCES public.r_accounts (id) MATCH SIMPLE
         ON UPDATE NO ACTION
         ON DELETE NO ACTION,
-    CONSTRAINT created_by_fkey FOREIGN KEY (created_by)
-        REFERENCES public.users (username) MATCH SIMPLE
-        ON UPDATE NO ACTION
-        ON DELETE NO ACTION,
-    CONSTRAINT payee_fkey FOREIGN KEY (payee)
-        REFERENCES public.r_payee (id) MATCH SIMPLE
-        ON UPDATE NO ACTION
-        ON DELETE NO ACTION,
-    CONSTRAINT updated_by_fkey FOREIGN KEY (updated_by)
-        REFERENCES public.users (username) MATCH SIMPLE
+    CONSTRAINT r_payees_id_fkey FOREIGN KEY (payee_id)
+        REFERENCES public.r_payees (id) MATCH SIMPLE
         ON UPDATE NO ACTION
         ON DELETE NO ACTION
-)
+);
 
 CREATE TABLE public.txn_history
 (
@@ -81,47 +71,38 @@ CREATE TABLE public.txn_history
         REFERENCES public.users (username) MATCH SIMPLE
         ON UPDATE NO ACTION
         ON DELETE NO ACTION
-)
+);
 
 CREATE TABLE public.r_accounts
 (
-    code character varying(5) COLLATE pg_catalog."default" NOT NULL,
+    id bigint NOT NULL,
     description character varying(100) COLLATE pg_catalog."default",
-    created_by character varying COLLATE pg_catalog."default",
+    created_by character varying(10) COLLATE pg_catalog."default",
     created_date timestamp without time zone,
-    updated_by character varying(8) COLLATE pg_catalog."default",
+    updated_by character varying(10) COLLATE pg_catalog."default",
     updated_date timestamp without time zone,
-    CONSTRAINT r_accounts_pkey PRIMARY KEY (code),
-    CONSTRAINT created_by_fkey FOREIGN KEY (created_by)
-        REFERENCES public.users (username) MATCH SIMPLE
-        ON UPDATE NO ACTION
-        ON DELETE NO ACTION,
-    CONSTRAINT updated_by_fkey FOREIGN KEY (updated_by)
-        REFERENCES public.users (username) MATCH SIMPLE
-        ON UPDATE NO ACTION
-        ON DELETE NO ACTION
-)
+    CONSTRAINT r_accounts_pkey PRIMARY KEY (id)
+);
 
-CREATE TABLE public.r_payee
+CREATE TABLE public.r_payees
 (
     id bigint NOT NULL,
-    description character varying(200) COLLATE pg_catalog."default",
-    date_created timestamp without time zone,
-    created_by character varying COLLATE pg_catalog."default",
-    updated_by character varying(8) COLLATE pg_catalog."default",
+    description character varying(100) COLLATE pg_catalog."default",
+    created_by character varying(10) COLLATE pg_catalog."default",
+    created_date timestamp without time zone,
+    updated_by character varying(10) COLLATE pg_catalog."default",
     updated_date timestamp without time zone,
-    CONSTRAINT r_payee_pkey PRIMARY KEY (id),
-    CONSTRAINT created_by_fkey FOREIGN KEY (created_by)
-        REFERENCES public.users (username) MATCH SIMPLE
-        ON UPDATE NO ACTION
-        ON DELETE NO ACTION,
-    CONSTRAINT updated_by_fkey FOREIGN KEY (updated_by)
-        REFERENCES public.users (username) MATCH SIMPLE
-        ON UPDATE NO ACTION
-        ON DELETE NO ACTION
-)
+    CONSTRAINT r_payees_pkey PRIMARY KEY (id)
+);
 
-CREATE SEQUENCE public.acct_details_id_seq
+CREATE SEQUENCE public.r_accounts_id_seq
+    INCREMENT 1
+    START 1
+    MINVALUE 1
+    MAXVALUE 9223372036854775807
+    CACHE 1;
+    
+CREATE SEQUENCE public.r_payees_id_seq
     INCREMENT 1
     START 1
     MINVALUE 1
@@ -141,3 +122,32 @@ CREATE SEQUENCE public.txn_id_seq
     MINVALUE 1
     MAXVALUE 9223372036854775807
     CACHE 1;
+    
+    
+---------------------------------- SOME DATA -------------------------------------
+
+INSERT INTO public.r_accounts(
+	id, description, created_by, created_date, updated_by, updated_date)
+	VALUES (nextval('r_accounts_id_seq'), 'PBB - AMT Realty', 'admin', '01-25-2018', 'admin', '01-25-2018');
+
+
+  INSERT INTO public.r_payees(
+	id, description, created_by, created_date, updated_by, updated_date)
+	VALUES (nextval('r_payees_id_seq'), 'Emerson', 'admin', '01-25-2018', 'admin', '01-25-2018');
+
+
+  INSERT INTO public.txn(
+	id, date_issued, check_no, payee_id, account_id, in_flag, recurring_flag, withdrawal_amount, deposit_amount, created_by, created_date, updated_by, updated_date)
+	VALUES (nextval('txn_id_seq'), '01-03-2018', '3705112', 1, 1, 1, 1, 51263.33, 0, 'admin', '01-25-2018', 'admin', '01-25-2018');
+
+	INSERT INTO public.txn(
+	id, date_issued, check_no, payee_id, account_id, in_flag, recurring_flag, withdrawal_amount, deposit_amount, created_by, created_date, updated_by, updated_date)
+	VALUES (nextval('txn_id_seq'), '01-03-2018', '23423', 1, 1, true, false, 454345, 0, 'admin', '01-27-2018', 'admin', '01-27-2018');
+    
+INSERT INTO public.txn(
+	id, date_issued, check_no, payee_id, account_id, in_flag, recurring_flag, withdrawal_amount, deposit_amount, created_by, created_date, updated_by, updated_date)
+	VALUES (nextval('txn_id_seq'), '01-03-2018', '6675', 1, 1, false, false, 9324, 0, 'admin', '01-27-2018', 'admin', '01-27-2018');
+    
+INSERT INTO public.txn(
+	id, date_issued, check_no, payee_id, account_id, in_flag, recurring_flag, withdrawal_amount, deposit_amount, created_by, created_date, updated_by, updated_date)
+	VALUES (nextval('txn_id_seq'), '01-03-2018', '12334', 1, 1, false, true, 6234, 0, 'admin', '01-27-2018', 'admin', '01-27-2018');

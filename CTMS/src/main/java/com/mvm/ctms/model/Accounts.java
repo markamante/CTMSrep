@@ -8,30 +8,30 @@ import javax.persistence.*;
 @Table(name = "r_accounts")
 public class Accounts {
 	@Id
-    @Column(name = "code")
-    private String code;
+    @Column(name = "id")
+    private long id;
     
     @Column(name = "description")
     private String description;
     
     @Column(name = "created_by")
-    private User createdBy;
+    private String createdBy;
     
     @Column(name = "created_date")
     private Timestamp createdDate;
 
     @Column(name = "updated_by")
-    private User updatedBy;
+    private String updatedBy;
     
     @Column(name = "updated_date")
     private Timestamp updatedDate;
     
-	public String getCode() {
-		return code;
+	public long getId() {
+		return id;
 	}
 
-	public void setCode(String code) {
-		this.code = code;
+	public void setId(long id) {
+		this.id = id;
 	}
 
 	public String getDescription() {
@@ -42,11 +42,11 @@ public class Accounts {
 		this.description = description;
 	}
 
-	public User getCreatedBy() {
+	public String getCreatedBy() {
 		return createdBy;
 	}
 
-	public void setCreatedBy(User createdBy) {
+	public void setCreatedBy(String createdBy) {
 		this.createdBy = createdBy;
 	}
 
@@ -58,11 +58,11 @@ public class Accounts {
 		this.createdDate = createdDate;
 	}
 
-	public User getUpdatedBy() {
+	public String getUpdatedBy() {
 		return updatedBy;
 	}
 
-	public void setUpdatedBy(User updatedBy) {
+	public void setUpdatedBy(String updatedBy) {
 		this.updatedBy = updatedBy;
 	}
 

@@ -46,7 +46,7 @@ public class TransactionDAOImpl implements TransactionDAO{
     @Override
     public List<Transaction> listTransaction() {
         Session session = this.sessionFactory.getCurrentSession();
-        List<Transaction> transactionList = session.createQuery("from txn").list();
+        List<Transaction> transactionList = session.createQuery("from Transaction").list();
         for (Transaction transaction : transactionList) {
             logger.info("Transaction List::" + transaction);
         }

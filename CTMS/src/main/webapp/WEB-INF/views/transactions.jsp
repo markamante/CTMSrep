@@ -8,7 +8,8 @@
 <title>Transactions</title>
 <body>
   <jsp:include page="/WEB-INF/views/header.jsp"/>
-  
+  <br/><br/><br/><br/><br/><br/><br/><br/>
+  <jsp:include page="/WEB-INF/views/transactionstable.jsp"/>
   <jsp:include page="/WEB-INF/views/footer.jsp"/>
 </body>
 </html>

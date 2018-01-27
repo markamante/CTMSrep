@@ -57,12 +57,14 @@ public class LoginController {
 	public String journal() {
 		return "Journal";
 	}
-
+	
+	/*
 	@RequestMapping(value = "/transactions", method = RequestMethod.GET)
 	public String transactions() {
 		return "Transactions";
 	}
-
+	*/
+	
 	@RequestMapping(value = "/sysAd", method = RequestMethod.GET)
 	public String sysAd() {
 		return "SysAd";

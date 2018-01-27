@@ -31,7 +31,7 @@
         <beans:property name="url"
             value="jdbc:postgresql://localhost:5432/CTMS" />
         <beans:property name="username" value="postgres" />
-        <beans:property name="password" value="postgres" />
+        <beans:property name="password" value="p@ssw0rd" />
     </beans:bean>
 
     <!-- Hibernate 4 SessionFactory Bean definition -->
@@ -40,8 +40,9 @@
         <beans:property name="dataSource" ref="dataSource" />
         <beans:property name="annotatedClasses">
             <beans:list>
-                <beans:value>com.mvm.ctms.model.Phone</beans:value>
                 <beans:value>com.mvm.ctms.model.User</beans:value>
+                <beans:value>com.mvm.ctms.model.Transaction</beans:value>
+                <beans:value>com.mvm.ctms.model.Accounts</beans:value>
             </beans:list>
         </beans:property>
         <beans:property name="hibernateProperties">
@@ -54,31 +55,17 @@
     </beans:bean>
 
 	<!-- DAO Bean definition -->
-    <beans:bean id="accountDAO" class="com.mvm.ctms.dao.AccountDAOImpl">
-        <beans:property name="sessionFactory" ref="hibernate4AnnotatedSessionFactory" />
-    </beans:bean>
-    <beans:bean id="accountDetailsDAO" class="com.mvm.ctms.dao.AccountDetailsDAOImpl">
-        <beans:property name="sessionFactory" ref="hibernate4AnnotatedSessionFactory" />
-    </beans:bean>
-    <beans:bean id="payeeDAO" class="com.mvm.ctms.dao.PayeeDAOImpl">
+    <beans:bean id="userDAO" class="com.mvm.ctms.dao.UserDAOImpl">
         <beans:property name="sessionFactory" ref="hibernate4AnnotatedSessionFactory" />
     </beans:bean>
     <beans:bean id="transactionDAO" class="com.mvm.ctms.dao.TransactionDAOImpl">
         <beans:property name="sessionFactory" ref="hibernate4AnnotatedSessionFactory" />
     </beans:bean>
-    <beans:bean id="transactionHistoryDAO" class="com.mvm.ctms.dao.TransactionHistoryDAOImpl">
-        <beans:property name="sessionFactory" ref="hibernate4AnnotatedSessionFactory" />
-    </beans:bean>
-    <beans:bean id="userDAO" class="com.mvm.ctms.dao.UserDAOImpl">
-        <beans:property name="sessionFactory" ref="hibernate4AnnotatedSessionFactory" />
-    </beans:bean>
     
     <!-- Services Bean definition -->
-    <beans:bean id="phoneService" class="com.mvm.ctms.service.UserServiceImpl">
-       <!--  <beans:property name="phoneDAO" ref="phoneDAO"></beans:property> -->
-    </beans:bean>
     <beans:bean id="userService" class="com.mvm.ctms.service.UserServiceImpl">
-        
+    </beans:bean>
+    <beans:bean id="transactionService" class="com.mvm.ctms.service.TransactionServiceImpl">
     </beans:bean>
     <context:component-scan base-package="com.mvm.ctms" />
 
