@@ -44,9 +44,9 @@ public class AccountDAOImpl implements AccountDAO{
 
     @SuppressWarnings("unchecked")
     @Override
-    public List<Accounts> listAccounts() {
+    public List<Accounts> listAccount() {
         Session session = this.sessionFactory.getCurrentSession();
-        List<Accounts> accountList = session.createQuery("from r_accounts").list();
+        List<Accounts> accountList = session.createQuery("from Accounts").list();
         for (Accounts account : accountList) {
             logger.info("Account List::" + account);
         }

@@ -11,6 +11,6 @@ public interface AccountDAO {
 	
 	public void addAccount(Accounts accounts);
     public void updateAccount(Accounts accounts);
-    public List<Accounts> listAccounts();
+    public List<Accounts> listAccount();
     public void removeAccount(String code);
 }

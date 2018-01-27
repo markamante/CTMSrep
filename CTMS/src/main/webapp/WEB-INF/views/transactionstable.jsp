@@ -1,8 +1,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ page session="false"%>
 <!DOCTYPE html>
 <html>
@@ -11,107 +10,145 @@
   <link rel="stylesheet" href="resources/css/bootstrap.min.css"/>
   <script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
   <script src="resources/js/bootstrap.min.js"></script>
-<title>Checking Accounts Monitoring</title>
+<title>Transactions Page</title>
 </head>
 <body>
 	<div class="container">
+		
+		<!-- TRANSACTIONS TABLE HEADER AND MODAL BUTTONS-->
+		<div class="float-left">
+		  <h4>TRANSACTIONS</h4>
+		</div>
+		<div class="float-right">
+		  <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addTxnModalCenter">
+		    Add
+		  </button>
+		  <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#editTxnModalCenter">
+		    Edit
+		  </button>
+		  <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#delTxnModalCenter">
+		    Delete
+		  </button>
+		</div>
+		<div class="clearfix"></div>
+		<br/>
+		
+		<!-- TRANSACTION TABLE -->
 		<div class="border rounded" style="height: 420px;overflow:auto">
-	      <table class="table">
-	        <thead>
-	          <tr>
-	            <th scope="col" hidden>TID</th>
-	            <th scope="col"></th>
-	            <th scope="col">DATE</th>
-	            <th scope="col">CHECK NO.</th>
-	            <th scope="col">PAYEE</th>
-	            <th scope="col">RE</th>
-	            <th scope="col">ACCOUNT</th>
-	            <th scope="col">IN</th>
-	            <th scope="col">WITHDRAWAL</th>
-	            <th scope="col">DEPOSIT</th>
-	          </tr>
-	        </thead>
-	        <tbody>
-	          <tr>
-	            <th scope="row" hidden><input type="text" id="TID1" value="1"></th>
-	            <th scope="row">
-	              <input id="SEL1" type="checkbox">
-	            </th>
-	            <td>01/03/18</td>
-	            <td >3705112</td>
-	            <td>Emerson</td>
-	            <td>
-	              <input id="RE1" type="checkbox" checked disabled>
-	            </td>
-	            <td>PBB - AMT Realty</td>
-	            <td>
-	              <input id="IN1" type="checkbox" checked disabled>
-	            </td>
-	            <td>51,263.33</td>
-	            <td></td>
-	          </tr>
-	          <tr>
-	            <th scope="row" hidden><input type="text" id="TID2" value="2"></th>
-	            <th scope="row">
-	              <input id="SEL2" type="checkbox">
-	            </th>
-	            <td>01/03/18</td>
-	            <td>72085</td>
-	            <td>Hi-Top</td>
-	            <td>
-	              <input id="RE2" type="checkbox" checked disabled>
-	            </td>
-	            <td>Land Bank - CA AMT Realty</td>
-	            <td>
-	              <input id="IN2" type="checkbox" disabled>
-	            </td>
-	            <td>58,639.00</td>
-	            <td></td>
-	          </tr>
-	          <tr>
-	            <th scope="row" hidden><input type="text" id="TID3" value="3"></th>
-	            <th scope="row">
-	              <input id="SEL3" type="checkbox">
-	            </th>
-	            <td>01/05/18</td>
-	            <td></td>
-	            <td>CASH DEPOSIT</td>
-	            <td>
-	              <input id="RE3" type="checkbox" disabled>
-	            </td>
-	            <td>PBB - AMT Realty</td>
-	            <td>
-	              <input id="IN3" type="checkbox" disabled>
-	            </td>
-	            <td></td>
-	            <td>58,000</td>
-	          </tr>
-	        </tbody>
-	      </table>
-	    </div>
-	    
-		<c:if test="${!empty listTransaction}">
+			<c:if test="${!empty listTransaction}">
 			<table class="table">
 				<tr>
-				    <th>ID</th>
-				    <th>DATE ISSUED</th>
-				    <th>CHECK NO</th>
-				    <th>ACCOUNT</th>
-				    <th>WITHDRAWAL AMOUNT</th>
-				    
-				
+				    <th scope="col" hidden>TID</th>
+		            <th scope="col"></th>
+		            <th scope="col">DATE</th>
+		            <th scope="col">CHECK NO.</th>
+		            <th scope="col">PAYEE</th>
+		            <th scope="col">RE</th>
+		            <th scope="col">ACCOUNT</th>
+		            <th scope="col">IN</th>
+		            <th scope="col">WITHDRAWAL</th>
+		            <th scope="col">DEPOSIT</th>
 				</tr>
 				<c:forEach items="${listTransaction}" var="transaction">
 				<tr>
-				    <td>${transaction.id}</td>
-					<td><fmt:formatDate value="${transaction.dateIssued}" pattern="MM/dd/yyyy" /></td>
-					<td>${transaction.checkNo}</td>
-					<td>${transaction.accountId.getDescription()}</td>
-					<td><fmt:formatNumber type = "number" maxFractionDigits = "3" value = "${transaction.withdrawalAmt}" /></td>
+					<th scope="row" hidden>${transaction.id}</th>
+		            <th scope="row">
+		              <input id="SELTXN${transaction.id}" type="checkbox">
+		            </th>
+		            <td><fmt:formatDate value="${transaction.dateIssued}" pattern="MM/dd/yyyy" /></td>
+		            <td >${transaction.checkNo}</td>
+		            <td>PAYEE HERE</td>
+		            <td>
+		              <input type="checkbox" disabled
+		              	<c:choose>
+						    <c:when test="${transaction.recurFlag}"> checked </c:when>
+					    </c:choose>
+					   >
+		            </td>
+		            <td>${transaction.accountId.getDescription()}</td>
+		            <td>
+		              <input type="checkbox" disabled
+		              	<c:choose>
+						    <c:when test="${transaction.inFlag}"> checked </c:when>
+					    </c:choose>
+					   >
+		            </td>
+		            <td>
+		            	<c:choose>
+						    <c:when test="${transaction.withdrawalAmt le 0}">
+								<!-- blank -->
+						    </c:when>    
+						    <c:otherwise>
+									<fmt:formatNumber type = "number" maxFractionDigits = "3" value = "${transaction.withdrawalAmt}" />
+						    </c:otherwise>
+						</c:choose>
+		            </td>
+		            <td>
+		            	<c:choose>
+						    <c:when test="${transaction.depositAmt le 0}">
+								<!-- blank -->
+						    </c:when>    
+						    <c:otherwise>
+									<fmt:formatNumber type = "number" maxFractionDigits = "3" value = "${transaction.depositAmt}" />
+						    </c:otherwise>
+						</c:choose>
+		            </td>
 				</tr>
 				</c:forEach>
-				</table>
-		</c:if>
+			</table>
+			</c:if>	
+	    </div>
+	    
+		<!-- ADD TRANSACTION MODAL -->
+		<div class="modal fade" id="addTxnModalCenter" tabindex="-1" role="dialog" aria-labelledby="addTxnModalCenterTitle" aria-hidden="true">
+			<div class="modal-dialog modal-dialog-centered" role="document">
+			  <div class="modal-content">
+			    <div class="modal-header">
+			      <h5 class="modal-title" id="addTxnModalLongTitle">Add Transaction</h5>
+			      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+			        <span aria-hidden="true">&times;</span>
+			      </button>
+			    </div>
+			    <div class="modal-body">
+					<form:form modelAttribute="transaction" method="post">
+						<div class="form-group">
+							<label for="addTxnDate">DATE</label>
+							<form:input cssClass="form-control" path="dateIssued" />
+						</div>
+						<div class="form-group">
+							<label for="addTxnCheckNo">CHECK NUMBER</label>
+							<form:input cssClass="form-control" path="checkNo" />
+						</div>
+						<div class="form-group">
+							<label for="addTxnPayee">PAYEE</label>
+							<form:select cssClass="form-control" path="payee">
+								<form:options items="${listAccount}" itemValue="id" itemLabel="description" />
+							</form:select>
+						</div>
+						<div class="form-group">
+							<label for="addTxnAccount">ACCOUNT</label>
+							<form:select cssClass="form-control" path="accountId">
+								<form:options items="${listAccount}" itemValue="id" itemLabel="description" />
+							</form:select>
+						</div>
+						<div class="form-group">
+							<label for="addTxnWithdraw">WITHDRAWAL AMOUNT</label>
+							<form:input cssClass="form-control" path="withdrawalAmt" />
+						</div>
+						<div class="form-group">
+							<label for="addTxnDeposit">DEPOSIT AMOUNT</label>
+							<form:input cssClass="form-control" path="depositAmt" />
+						</div>
+						
+					</form:form>
+			      </div>
+			      <div class="modal-footer">
+			        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+			        <button type="button" class="btn btn-primary">Add</button>
+			      </div>
+			    </div>
+			  </div>
+		</div>	
 
     </div>
 </body>

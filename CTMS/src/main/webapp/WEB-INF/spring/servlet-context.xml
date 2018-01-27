@@ -31,7 +31,8 @@
         <beans:property name="url"
             value="jdbc:postgresql://localhost:5432/CTMS" />
         <beans:property name="username" value="postgres" />
-        <beans:property name="password" value="p@ssw0rd" />
+        <beans:property name="password" value="postgres" />
+        <!--  <beans:property name="password" value="p@ssw0rd" /> -->
     </beans:bean>
 
     <!-- Hibernate 4 SessionFactory Bean definition -->
@@ -61,11 +62,16 @@
     <beans:bean id="transactionDAO" class="com.mvm.ctms.dao.TransactionDAOImpl">
         <beans:property name="sessionFactory" ref="hibernate4AnnotatedSessionFactory" />
     </beans:bean>
+    <beans:bean id="accountDAO" class="com.mvm.ctms.dao.AccountDAOImpl">
+        <beans:property name="sessionFactory" ref="hibernate4AnnotatedSessionFactory" />
+    </beans:bean>
     
     <!-- Services Bean definition -->
     <beans:bean id="userService" class="com.mvm.ctms.service.UserServiceImpl">
     </beans:bean>
     <beans:bean id="transactionService" class="com.mvm.ctms.service.TransactionServiceImpl">
+    </beans:bean>
+    <beans:bean id="accountService" class="com.mvm.ctms.service.AccountServiceImpl">
     </beans:bean>
     <context:component-scan base-package="com.mvm.ctms" />
 
