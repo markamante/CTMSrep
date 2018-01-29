@@ -6,14 +6,11 @@
 <html>
 <head>
 <title>User Login</title>
-<spring:url value="/resources/css/style3.css" var="mainCss" />
-<spring:url value="/resources/js/login2.js" var="loginText" />
-<link href="${mainCss}" rel="stylesheet" />
-<script src="${loginText}"></script>
 </head>
 
 <body >
-	Insert Header, Menu and Container here.
+  <jsp:include page="/WEB-INF/views/header.jsp"/>
+  <jsp:include page="/WEB-INF/views/footer.jsp"/>
 </body>
 	
 	
