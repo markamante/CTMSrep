@@ -1,12 +1,4 @@
-@import
-	url(https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400);
 
-@import
-	url(https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400);
-
-section {
-	text-align: center;
-}
 
 .footer #button {
 	width: 50px;
@@ -45,18 +37,6 @@ section {
 	height: 3em;
 }
 
-.header {
-	top: 0;
-	left: 0;
-	position: fixed;
-	width: 100%;
-	overflow: hidden;
-	margin: 0 auto;
-	z-index: 999;
-	background-color: #48bc8f;
-    border-bottom: 20px solid #0E9562;
-	
-}
 .footer #container {
 	margin-top: 5px;
 	width: 100%;
@@ -88,15 +68,4 @@ section {
 	font-weight: 100;
 	margin-top: 70px;
 	margin-left: 40px;
-}
-
-
-.header_center {
-	width: 500px;
-	float: left;
-	text-align: center;
-}
-
-.space{
-	top:10px;
 }
