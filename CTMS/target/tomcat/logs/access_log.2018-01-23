@@ -1,7 +1,0 @@
-0:0:0:0:0:0:0:1 - - [23/Jan/2018:22:14:08 +0800] "GET /CTMS/ HTTP/1.1" 200 1091 http-bio-8080-exec-1 157
-0:0:0:0:0:0:0:1 - - [23/Jan/2018:22:14:08 +0800] "GET /CTMS/resources/js/login2.js HTTP/1.1" 304 - http-bio-8080-exec-3 31
-0:0:0:0:0:0:0:1 - - [23/Jan/2018:22:14:08 +0800] "GET /CTMS/resources/css/style3.css HTTP/1.1" 304 - http-bio-8080-exec-2 63
-0:0:0:0:0:0:0:1 - - [23/Jan/2018:22:14:09 +0800] "GET /favicon.ico HTTP/1.1" 404 - http-bio-8080-exec-5 0
-0:0:0:0:0:0:0:1 - - [23/Jan/2018:22:14:11 +0800] "POST /CTMS/login HTTP/1.1" 200 348 http-bio-8080-exec-6 297
-0:0:0:0:0:0:0:1 - - [23/Jan/2018:22:14:11 +0800] "GET /CTMS/resources/css/style3.css;jsessionid=ED26A66FDAB1F62369937174665947A1 HTTP/1.1" 200 19201 http-bio-8080-exec-7 16
-0:0:0:0:0:0:0:1 - - [23/Jan/2018:22:14:11 +0800] "GET /CTMS/resources/js/login2.js;jsessionid=ED26A66FDAB1F62369937174665947A1 HTTP/1.1" 200 1645 http-bio-8080-exec-8 0
