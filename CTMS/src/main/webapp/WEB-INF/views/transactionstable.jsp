@@ -109,8 +109,9 @@
 			        <span aria-hidden="true">&times;</span>
 			      </button>
 			    </div>
+			    <form:form action="addtransaction" commandName="transaction">
 			    <div class="modal-body">
-					<form:form modelAttribute="transaction" method="post">
+					
 						<div class="form-group">
 							<label for="addTxnDate">DATE</label>
 							<form:input cssClass="form-control" path="dateIssued" />
@@ -121,13 +122,15 @@
 						</div>
 						<div class="form-group">
 							<label for="addTxnPayee">PAYEE</label>
-							<form:select cssClass="form-control" path="payee">
-								<form:options items="${listAccount}" itemValue="id" itemLabel="description" />
+							<form:select cssClass="form-control" path="payeeId">
+								<form:option value="0" label="- Select -"/>
+								<form:options items="${listPayee}" itemValue="id" itemLabel="description" />
 							</form:select>
 						</div>
 						<div class="form-group">
 							<label for="addTxnAccount">ACCOUNT</label>
 							<form:select cssClass="form-control" path="accountId">
+								<form:option value="0" label="- Select -"/>
 								<form:options items="${listAccount}" itemValue="id" itemLabel="description" />
 							</form:select>
 						</div>
@@ -139,13 +142,21 @@
 							<label for="addTxnDeposit">DEPOSIT AMOUNT</label>
 							<form:input cssClass="form-control" path="depositAmt" />
 						</div>
-						
-					</form:form>
+						<div class="form-check form-check-inline">
+							<form:checkbox cssClass="form-check-input" path="recurFlag" />
+							<label class="form-check-label" for="editTxnRec1">RECURRING</label>
+						</div>
+						<div class="form-check form-check-inline">
+							<form:checkbox cssClass="form-check-input" path="inFlag" />
+							<label class="form-check-label" for="editTxnIn1">IN</label>
+						</div>
+					
 			      </div>
 			      <div class="modal-footer">
 			        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-			        <button type="button" class="btn btn-primary">Add</button>
+			        <button type="submit" class="btn btn-primary">Add</button>
 			      </div>
+			      </form:form>
 			    </div>
 			  </div>
 		</div>	

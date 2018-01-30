@@ -5,7 +5,7 @@ import java.sql.Timestamp;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "r_payee")
+@Table(name = "r_payees")
 public class Payee {
 	@Id
     @Column(name = "id")
@@ -15,13 +15,13 @@ public class Payee {
     private String description;
     
     @Column(name = "created_by")
-    private User createdBy;
+    private String createdBy;
     
     @Column(name = "created_date")
     private Timestamp createdDate;
 
     @Column(name = "updated_by")
-    private User updatedBy;
+    private String updatedBy;
     
     @Column(name = "updated_date")
     private Timestamp updatedDate;
@@ -42,11 +42,11 @@ public class Payee {
 		this.description = description;
 	}
 
-	public User getCreatedBy() {
+	public String getCreatedBy() {
 		return createdBy;
 	}
 
-	public void setCreatedBy(User createdBy) {
+	public void setCreatedBy(String createdBy) {
 		this.createdBy = createdBy;
 	}
 
@@ -58,11 +58,11 @@ public class Payee {
 		this.createdDate = createdDate;
 	}
 
-	public User getUpdatedBy() {
+	public String getUpdatedBy() {
 		return updatedBy;
 	}
 
-	public void setUpdatedBy(User updatedBy) {
+	public void setUpdatedBy(String updatedBy) {
 		this.updatedBy = updatedBy;
 	}
 

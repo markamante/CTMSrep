@@ -32,7 +32,7 @@
             value="jdbc:postgresql://localhost:5432/CTMS" />
         <beans:property name="username" value="postgres" />
         <beans:property name="password" value="postgres" />
-        <!--  <beans:property name="password" value="p@ssw0rd" /> -->
+        <!-- <beans:property name="password" value="p@ssw0rd" /> -->
     </beans:bean>
 
     <!-- Hibernate 4 SessionFactory Bean definition -->
@@ -44,6 +44,7 @@
                 <beans:value>com.mvm.ctms.model.User</beans:value>
                 <beans:value>com.mvm.ctms.model.Transaction</beans:value>
                 <beans:value>com.mvm.ctms.model.Accounts</beans:value>
+                <beans:value>com.mvm.ctms.model.Payee</beans:value>
             </beans:list>
         </beans:property>
         <beans:property name="hibernateProperties">
@@ -65,6 +66,9 @@
     <beans:bean id="accountDAO" class="com.mvm.ctms.dao.AccountDAOImpl">
         <beans:property name="sessionFactory" ref="hibernate4AnnotatedSessionFactory" />
     </beans:bean>
+    <beans:bean id="payeeDAO" class="com.mvm.ctms.dao.PayeeDAOImpl">
+        <beans:property name="sessionFactory" ref="hibernate4AnnotatedSessionFactory" />
+    </beans:bean>
     
     <!-- Services Bean definition -->
     <beans:bean id="userService" class="com.mvm.ctms.service.UserServiceImpl">
@@ -72,6 +76,8 @@
     <beans:bean id="transactionService" class="com.mvm.ctms.service.TransactionServiceImpl">
     </beans:bean>
     <beans:bean id="accountService" class="com.mvm.ctms.service.AccountServiceImpl">
+    </beans:bean>
+    <beans:bean id="payeeService" class="com.mvm.ctms.service.PayeeServiceImpl">
     </beans:bean>
     <context:component-scan base-package="com.mvm.ctms" />
 

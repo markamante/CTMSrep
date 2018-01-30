@@ -9,6 +9,7 @@ import javax.persistence.*;
 @Table(name = "txn")
 public class Transaction {
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
     private long id;
 	
@@ -19,9 +20,9 @@ public class Transaction {
     private String checkNo;
 
     @Column(name = "payee_id")
-    private long payee;
+    private long payeeId;
     
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "account_id")
     private Accounts accountId;
     
@@ -73,12 +74,12 @@ public class Transaction {
 		this.checkNo = checkNo;
 	}
 
-	public long getPayee() {
-		return payee;
+	public long getPayeeId() {
+		return payeeId;
 	}
 
-	public void setPayee(long payee) {
-		this.payee = payee;
+	public void setPayeeId(long payeeId) {
+		this.payeeId = payeeId;
 	}
 
 	public boolean getRecurFlag() {
@@ -152,4 +153,5 @@ public class Transaction {
 	public void setUpdatedDate(Timestamp updatedDate) {
 		this.updatedDate = updatedDate;
 	}
+
 }

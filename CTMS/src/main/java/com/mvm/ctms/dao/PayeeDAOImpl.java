@@ -46,7 +46,7 @@ public class PayeeDAOImpl implements PayeeDAO{
     @Override
     public List<Payee> listPayee() {
         Session session = this.sessionFactory.getCurrentSession();
-        List<Payee> payeeList = session.createQuery("from r_payee").list();
+        List<Payee> payeeList = session.createQuery("from Payee").list();
         for (Payee payee : payeeList) {
             logger.info("Payee List::" + payee);
         }

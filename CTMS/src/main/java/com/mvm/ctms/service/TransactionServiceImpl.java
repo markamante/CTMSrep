@@ -23,4 +23,10 @@ public class TransactionServiceImpl implements TransactionService{
         return this.transactionDAO.listTransaction();
     }
 	
+	@Override
+    @Transactional
+    public void addTransaction(Transaction t) {
+        this.transactionDAO.addTransaction(t);
+    }
+	
 }
