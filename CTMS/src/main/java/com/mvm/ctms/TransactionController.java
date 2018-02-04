@@ -11,11 +11,23 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 import java.util.Map;
+import org.springframework.web.bind.support.SessionStatus;
+import org.springframework.validation.BindingResult;
+
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import org.springframework.beans.propertyeditors.CustomDateEditor;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
 
 import com.mvm.ctms.model.Transaction;
+import com.mvm.ctms.model.Accounts;
 import com.mvm.ctms.service.TransactionService;
 import com.mvm.ctms.service.AccountService;
 import com.mvm.ctms.service.PayeeService;
+import com.mvm.ctms.editor.AccountEditor;
 
 
 @Controller
@@ -35,6 +47,13 @@ public class TransactionController {
         this.transactionService = ts;
     }
 
+    @InitBinder
+    public void initBinder(WebDataBinder binder) {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        sdf.setLenient(false);
+        binder.registerCustomEditor(Date.class, new CustomDateEditor(sdf, true));
+    }
+    
 	@RequestMapping(value = "/transactions", method = RequestMethod.GET)
     public String listTransaction(Model model) {
         model.addAttribute("transaction", new Transaction());
@@ -45,9 +64,9 @@ public class TransactionController {
     }
 	
 	@RequestMapping(value = "/addtransaction", method = RequestMethod.POST)
-    public String addTransaction(@ModelAttribute("transaction") Transaction t) {
+    public String addTransaction(@ModelAttribute("transaction") Transaction t, BindingResult result, SessionStatus status) {		
 		this.transactionService.addTransaction(t);
-
+		status.setComplete();
         return "redirect:/transactions";
 
     }

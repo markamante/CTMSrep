@@ -20,10 +20,10 @@ public class AccountDAOImpl implements AccountDAO{
     }
 	
     @Override
-    public Accounts findAccounts(String code) {
+    public Accounts findAccounts(long id) {
         Session session = this.sessionFactory.getCurrentSession();
-        Accounts account = (Accounts) session.get(Accounts.class, code);
-        logger.info("Account fetch successfully, account =" + account);
+        Accounts account = (Accounts) session.get(Accounts.class, id);
+        System.out.println("Account fetch successfully, account =" + account);
         return account;
     }
     

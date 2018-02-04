@@ -7,8 +7,7 @@ import com.mvm.ctms.model.Accounts;
 import com.mvm.ctms.model.User;
 
 public interface AccountDAO {
-	public Accounts findAccounts(String code);
-	
+	public Accounts findAccounts(long id);
 	public void addAccount(Accounts accounts);
     public void updateAccount(Accounts accounts);
     public List<Accounts> listAccount();

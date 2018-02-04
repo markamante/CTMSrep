@@ -43,11 +43,11 @@
 		            <th scope="col">DATE</th>
 		            <th scope="col">CHECK NO.</th>
 		            <th scope="col">PAYEE</th>
-		            <th scope="col">RE</th>
 		            <th scope="col">ACCOUNT</th>
-		            <th scope="col">IN</th>
 		            <th scope="col">WITHDRAWAL</th>
 		            <th scope="col">DEPOSIT</th>
+  		            <th scope="col">RE</th>
+  		            <th scope="col">IN</th>
 				</tr>
 				<c:forEach items="${listTransaction}" var="transaction">
 				<tr>
@@ -57,21 +57,19 @@
 		            </th>
 		            <td><fmt:formatDate value="${transaction.dateIssued}" pattern="MM/dd/yyyy" /></td>
 		            <td >${transaction.checkNo}</td>
-		            <td>PAYEE HERE</td>
 		            <td>
-		              <input type="checkbox" disabled
-		              	<c:choose>
-						    <c:when test="${transaction.recurFlag}"> checked </c:when>
-					    </c:choose>
-					   >
+		            	<c:forEach items="${listPayee}" var="txnPayee">
+		            		<c:if test="${transaction.payeeId le txnPayee.id}">
+		            			${txnPayee.description}
+		            		</c:if>
+		            	</c:forEach>
 		            </td>
-		            <td>${transaction.accountId.getDescription()}</td>
 		            <td>
-		              <input type="checkbox" disabled
-		              	<c:choose>
-						    <c:when test="${transaction.inFlag}"> checked </c:when>
-					    </c:choose>
-					   >
+		            	<c:forEach items="${listAccount}" var="txnAccount">
+		            		<c:if test="${transaction.accountId le txnAccount.id}">
+		            			${txnAccount.description}
+		            		</c:if>
+		            	</c:forEach>
 		            </td>
 		            <td>
 		            	<c:choose>
@@ -92,6 +90,20 @@
 									<fmt:formatNumber type = "number" maxFractionDigits = "3" value = "${transaction.depositAmt}" />
 						    </c:otherwise>
 						</c:choose>
+		            </td>
+		            <td>
+		              <input type="checkbox" disabled
+		              	<c:choose>
+						    <c:when test="${transaction.recurFlag}"> checked </c:when>
+					    </c:choose>
+					   >
+		            </td>
+   		            <td>
+		              <input type="checkbox" disabled
+		              	<c:choose>
+						    <c:when test="${transaction.inFlag}"> checked </c:when>
+					    </c:choose>
+					   >
 		            </td>
 				</tr>
 				</c:forEach>
@@ -114,7 +126,7 @@
 					
 						<div class="form-group">
 							<label for="addTxnDate">DATE</label>
-							<form:input cssClass="form-control" path="dateIssued" />
+							<form:input cssClass="form-control" path="dateIssued" type="date" />
 						</div>
 						<div class="form-group">
 							<label for="addTxnCheckNo">CHECK NUMBER</label>

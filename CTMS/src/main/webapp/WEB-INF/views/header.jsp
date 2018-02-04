@@ -18,7 +18,7 @@
 	    </div>
 		
 		<div class="icon-bar">
-		  <a href="#"><i class="fa fa-calculator"></i><div class="NavCaption">TRANSACTIONS</div> </a> 
+		  <a href="./transactions"><i class="fa fa-calculator"></i><div class="NavCaption">TRANSACTIONS</div> </a> 
 		  <a href="#"><i class="fa fa-calendar"></i><div class="NavCaption">JOURNAL</div> </a> 
 		  <a href="#"><i class="fa fa-laptop"></i><div class="NavCaption">SYSTEM ADMIN</div> </a> 
 		  <a href="#"><i class="fa fa-power-off"></i><div class="NavCaption">LOG OUT</div></a> 

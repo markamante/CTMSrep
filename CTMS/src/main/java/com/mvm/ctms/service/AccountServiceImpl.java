@@ -23,4 +23,10 @@ public class AccountServiceImpl implements AccountService{
         return this.accountDAO.listAccount();
     }
 	
+	@Override
+	@Transactional
+	public Accounts findAccounts(long id) {
+	    return this.accountDAO.findAccounts(id);
+	}
+	
 }

@@ -7,4 +7,5 @@ import com.mvm.ctms.model.Accounts;
 public interface AccountService {
 	
 	public List<Accounts> listAccount();	
+	public Accounts findAccounts(long id);
 }

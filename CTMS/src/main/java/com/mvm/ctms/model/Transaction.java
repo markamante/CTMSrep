@@ -2,6 +2,8 @@ package com.mvm.ctms.model;
 
 import java.math.BigDecimal;
 import java.sql.Timestamp;
+import java.util.Date;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 
@@ -9,12 +11,17 @@ import javax.persistence.*;
 @Table(name = "txn")
 public class Transaction {
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "id")
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator="txn_id")
+	@SequenceGenerator(
+			name="txn_id",
+			sequenceName="txn_id_seq",
+			allocationSize=20
+		)
     private long id;
 	
+	@DateTimeFormat(pattern = "MM/dd/yyyy")
     @Column(name = "date_issued")
-    private Timestamp dateIssued;
+    private Date dateIssued;
     
     @Column(name = "check_no")
     private String checkNo;
@@ -22,9 +29,8 @@ public class Transaction {
     @Column(name = "payee_id")
     private long payeeId;
     
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "account_id")
-    private Accounts accountId;
+    @Column(name = "account_id")
+    private long accountId;
     
     @Column(name = "in_flag")
     private boolean inFlag;
@@ -58,11 +64,11 @@ public class Transaction {
 		this.id = id;
 	}
 
-	public Timestamp getDateIssued() {
+	public Date getDateIssued() {
 		return dateIssued;
 	}
 
-	public void setDateIssued(Timestamp dateIssued) {
+	public void setDateIssued(Date dateIssued) {
 		this.dateIssued = dateIssued;
 	}
 
@@ -90,11 +96,11 @@ public class Transaction {
 		this.recurFlag = recurFlag;
 	}
 
-	public Accounts getAccountId() {
+	public long getAccountId() {
 		return accountId;
 	}
 
-	public void setAccountId(Accounts accountId) {
+	public void setAccountId(long accountId) {
 		this.accountId = accountId;
 	}
 
